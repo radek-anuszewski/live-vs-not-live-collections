@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Live vs not live collections</title>
+  <script type="module">
+    const liveCollection = document.getElementsByClassName("el");
+    const notLiveCollection = document.querySelectorAll(".el");
+    let index = 3;
+
+    const parent = document.querySelector("#parent");
+    const button = document.querySelector("#add");
+    const live = document.querySelector("#live");
+    const notLive = document.querySelector("#notLive");
+
+    const updateDisplays = () => {
+      live.innerText = [...liveCollection].map(el => el.innerText).join(", ");
+      notLive.innerText = [...notLiveCollection].map(el => el.innerText).join(", ");
+    };
+
+    updateDisplays();
+
+    button.addEventListener("click", () => {
+      index++;
+      const span = document.createElement("span");
+      span.innerText = index.toString();
+      span.classList.add("el");
+      parent.appendChild(span);
+      setTimeout(updateDisplays, 100);
+    });
+
+
+  </script>
+</head>
+<body>
+<main>
+  <h1>Live vs not live collections</h1>
+  <article>
+    <button id="add">Add element to collection</button>
+    <p id="parent">
+      <span class="el">1</span>
+      <span class="el">2</span>
+      <span class="el">3</span>
+    </p>
+    <p>
+      <h2>Live collection (getElementsByClassName):</h2>
+      <pre id="live"></pre>
+    </p>
+    <p>
+      <h2>Not live collection (querySelectorAll):</h2>
+      <pre id="notLive"></pre>
+    </p>
+  </article>
+</main>
+</body>
+</html>
